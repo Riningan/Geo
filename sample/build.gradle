@@ -1,0 +1,52 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+
+android {
+    compileSdkVersion project.property("platform.compileSdkVersion").toInteger()
+    buildToolsVersion project.property("platform.buildToolsVersion")
+    signingConfigs {
+        config {
+            storeFile file('../key/key.jks')
+            storePassword 'KameGMmN86sz3Aav'
+            keyAlias 'key0'
+            keyPassword 'KameGMmN86sz3Aav'
+        }
+    }
+    defaultConfig {
+        applicationId "org.findmykids.sample"
+        minSdkVersion project.property("platform.minSdkVersion").toInteger()
+        targetSdkVersion project.property("platform.targetSdkVersion").toInteger()
+        versionCode project.property("platform.versionCode").toInteger()
+        versionName project.property("platform.versionName")
+        multiDexEnabled true
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled project.property("platform.minifyEnabled").toBoolean()
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled project.property("platform.minifyEnabled").toBoolean()
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation "androidx.core:core-ktx:1.0.2"
+    implementation "androidx.work:work-runtime-ktx:2.3.0"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation project(":geo")
+}
