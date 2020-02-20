@@ -1,0 +1,39 @@
+apply plugin: "java-library"
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+ext {
+    bintrayRepo = project.property("platform.bintrayRepo")
+    bintrayName = "TestProjectProto"
+
+    publishedGroupId = project.property("platform.publishedGroupId")
+    libraryName = "Protobuf"
+    artifact = "protobuf"
+
+    libraryDescription = "My Test Project Proto"
+
+    siteUrl = project.property("platform.siteUrl")
+    gitUrl = project.property("platform.gitUrl")
+
+    libraryVersion = project.property("platform.versionName")
+
+    developerId = project.property("platform.developerId")
+    developerName = project.property("platform.developerName")
+    developerEmail = project.property("platform.developerEmail")
+
+    licenseName = project.property("platform.licenseName")
+    licenseUrl = project.property("platform.licenseUrl")
+    allLicenses = project.property("platform.allLicenses")
+}
+
+dependencies {
+    api "com.google.protobuf:protobuf-java:3.11.1"
+}
+
+apply from: "https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle"
+apply from: "https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle"
+
+tasks.withType(Javadoc).all {
+    enabled = false
+}
